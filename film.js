@@ -131,11 +131,12 @@ if (vybranyFilm) {
       <div class="col-md-7">
         <div class="card-body">
           <h5 class="card-title">${vybranyFilm.nazev}</h5>
-          <p class="card-text">${vybranyFilm.ochutnavka}</p>
+		  <p class="card-text">${vybranyFilm.ochutnavka}</p>
           <p class="card-text">${vybranyFilm.popis}</p>
           <p class="card-text">
             <small class="text-muted" id="premiera">
             </small>
+		  
           </p>
         </div>
       </div>
@@ -178,6 +179,11 @@ if (vybranyFilm) {
 }
 
 /*Hodnoceni*/
+
+const hodnoceniElement = document.querySelector(".stars");
+if (hodnoceniElement) {
+	const hodnoceni = vybranyFilm.hodnoceni;
+}
 
 function zvyrazneni (pocet) {
     const hvezdy = document.querySelectorAll(".fa-star");
