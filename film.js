@@ -104,3 +104,60 @@ const filmy = [
 		premiera: '2022-12-24',
 	},
 ]
+
+const filmIdUrl = location.hash.slice(1);
+let vybranyFilm = null; 
+
+filmy.forEach(film => {
+	const filmIdNonHash = film.id.replace("#", ``);
+	if (filmIdNonHash === filmIdUrl) {
+		vybranyFilm = film;
+	}
+});
+
+const detailFilmuElm = document.getElementById("detail-filmu");
+if (vybranyFilm) {
+	detailFilmuElm.innerHTML = `
+    <div class="row g-0">
+      <div class="col-md-5">
+        <img
+          src="${vybranyFilm.plakat.url}"
+          alt="plakát"
+          class="img-fluid rounded-start"
+          width="${vybranyFilm.plakat.sirka}"
+          height="${vybranyFilm.plakat.vyska}"
+        />
+      </div>
+      <div class="col-md-7">
+        <div class="card-body">
+          <h5 class="card-title">${vybranyFilm.nazev}</h5>
+          <p class="card-text">${vybranyFilm.ochutnavka}</p>
+          <p class="card-text">${vybranyFilm.popis}</p>
+          <p class="card-text">
+            <small class="text-muted" id="premiera">
+            </small>
+          </p>
+        </div>
+      </div>
+    </div>
+  `;
+} else {
+	detailFilmuElm.innerHTML ="<p>Film nebyl nalezen</p>"
+}
+
+
+/*const filmID = location.hash.substring(1);
+const vybranyFilm = filmy.find((film) => film.ID === filmID);
+
+if (vybranyFilm) {
+    console.error ("Film s ID ${filmId} nenalezen." );
+}else{
+    const datumPremiery = dayjs(vybranyFilm.premiera).format("D. M. YYYY");
+    const premieraElement = document.getElementById("premiera");
+
+    premieraElement.innerHTML = `Premiéra <strong>${datumPremiery}</strong>`;
+
+}*/
+
+ 
+

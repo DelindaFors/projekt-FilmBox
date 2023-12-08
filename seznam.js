@@ -111,3 +111,28 @@ const seznamFilmu = document.querySelector ("#seznam-filmu")
 
 seznamFilmu.innerHTML = "";
 
+filmy.forEach((film) => {
+	const filmElement = document.createElement ("div");
+	filmElement.classList.add ("col");
+	filmElement.innerHTML = `
+    <div class="card">
+      <img
+        src="${film.plakat.url}"
+        alt="plakát"
+        width="${film.plakat.sirka}"
+        height="${film.plakat.vyska}"
+        class="card-img-top"
+      />
+      <div class="card-body">
+        <h5 class="card-title">${film.nazev}</h5>
+        <p class="card-text">${film.ochutnavka}</p>
+        <a href="film.html#${film.id}" class="btn btn-primary">Přehrát</a>
+      </div>
+    </div>
+  `;
+
+  seznamFilmu.appendChild (filmElement);
+});
+
+
+
