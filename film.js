@@ -104,9 +104,9 @@ const filmy = [
 		premiera: '2022-12-24',
 	},
 ]
-
+/*Zobrazeni filmu*/
 const filmIdUrl = location.hash.slice(1);
-let vybranyFilm = null; 
+let vybranyFilm; 
 
 filmy.forEach(film => {
 	const filmIdNonHash = film.id.replace("#", ``);
@@ -145,19 +145,55 @@ if (vybranyFilm) {
 	detailFilmuElm.innerHTML ="<p>Film nebyl nalezen</p>"
 }
 
+/*Premiera*/
+const filmID = location.hash.substring(1);
+const datumPremiera = dayjs(vybranyFilm.premiera)
+const dnes = dayjs ();
+const vzdalenostPremiera = datumPremiera.diff(dnes, 'days');
 
-/*const filmID = location.hash.substring(1);
-const vybranyFilm = filmy.find((film) => film.ID === filmID);
+const premieraElement = document.getElementById("premiera");
 
 if (vybranyFilm) {
-    console.error ("Film s ID ${filmId} nenalezen." );
-}else{
-    const datumPremiery = dayjs(vybranyFilm.premiera).format("D. M. YYYY");
-    const premieraElement = document.getElementById("premiera");
+    const formatDatumPremiera = dayjs(vybranyFilm.premiera).format("D. M. YYYY");
+	let popisPremiera = `Premiéra <strong>${formatDatumPremiera}</strong>`;
+    let denSpravne = 'dní'
 
-    premieraElement.innerHTML = `Premiéra <strong>${datumPremiery}</strong>`;
+    if (vzdalenostPremiera === 0) {
+        popisPremiera += ' je dnes.';
+    } else {
+        if (vzdalenostPremiera === 1 || vzdalenostPremiera === -1) {
+            denSpravne = 'den';
+        } else if (vzdalenostPremiera >= 2 && vzdalenostPremiera <= 4) {
+            denSpravne = 'dny';
+        }
 
-}*/
+        if (vzdalenostPremiera > 0) {
+            popisPremiera += ` se uskuteční za ${vzdalenostPremiera} ${denSpravne}.`;
+        } else {
+            popisPremiera += ` se uskutečnila před ${Math.abs(vzdalenostPremiera)} ${denSpravne}.`;
+        }
+    }
 
- 
+    premieraElement.innerHTML = popisPremiera;
+}
 
+/*Hodnoceni*/
+
+function zvyrazneni (pocet) {
+    const hvezdy = document.querySelectorAll(".fa-star");
+
+    hvezdy.forEach((hvezda, index) => {
+        const zvyraznena = index < pocet;
+
+        hvezda.classList.toggle("fas", zvyraznena);
+        hvezda.classList.toggle("far", !zvyraznena);
+    });
+}
+
+const hvezdy = document.querySelectorAll(".fa-star");
+
+hvezdy.forEach((hvezda, index) => {
+    hvezda.addEventListener("click", () => {
+		zvyrazneni(index + 1);
+    });
+});
