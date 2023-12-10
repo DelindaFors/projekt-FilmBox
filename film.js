@@ -115,36 +115,24 @@ filmy.forEach(film => {
 	}
 });
 
-const detailFilmuElm = document.getElementById("detail-filmu");
+const nazevElement = document.querySelector(".card-title");
+const ochutnavkaElement = document.querySelector(".ochutnavka");
+const popisElement = document.querySelector(".popis")
+
 if (vybranyFilm) {
-	detailFilmuElm.innerHTML = `
-    <div class="row g-0">
-      <div class="col-md-5">
-        <img
-          src="${vybranyFilm.plakat.url}"
-          alt="plakát"
-          class="img-fluid rounded-start"
-          width="${vybranyFilm.plakat.sirka}"
-          height="${vybranyFilm.plakat.vyska}"
-        />
-      </div>
-      <div class="col-md-7">
-        <div class="card-body">
-          <h5 class="card-title">${vybranyFilm.nazev}</h5>
-		  <p class="card-text">${vybranyFilm.ochutnavka}</p>
-          <p class="card-text">${vybranyFilm.popis}</p>
-          <p class="card-text">
-            <small class="text-muted" id="premiera">
-            </small>
-		  
-          </p>
-        </div>
-      </div>
-    </div>
-  `;
-} else {
-	detailFilmuElm.innerHTML ="<p>Film nebyl nalezen</p>"
+	nazevElement.textContent = vybranyFilm.nazev;
+	ochutnavkaElement.textContent = vybranyFilm.ochutnavka;
+	popisElement.textContent = vybranyFilm.popis;
+
 }
+
+const plakatElement = document.querySelector(".img-fluid");
+	plakatElement.src = vybranyFilm.plakat.url;
+	plakatElement.alt = vybranyFilm.nazev;
+	plakatElement.width = vybranyFilm.plakat.sirka;
+	plakatElement.height = vybranyFilm.plakat.vyska;
+
+
 
 /*Premiera*/
 const filmID = location.hash.substring(1);
@@ -157,7 +145,7 @@ const premieraElement = document.getElementById("premiera");
 if (vybranyFilm) {
     const formatDatumPremiera = dayjs(vybranyFilm.premiera).format("D. M. YYYY");
 	let popisPremiera = `Premiéra <strong>${formatDatumPremiera}</strong>`;
-    let denSpravne = 'dní'
+    let denSpravne = 'dny'
 
     if (vzdalenostPremiera === 0) {
         popisPremiera += ' je dnes.';
@@ -165,7 +153,7 @@ if (vybranyFilm) {
         if (vzdalenostPremiera === 1 || vzdalenostPremiera === -1) {
             denSpravne = 'den';
         } else if (vzdalenostPremiera >= 2 && vzdalenostPremiera <= 4) {
-            denSpravne = 'dny';
+            denSpravne = 'dní';
         }
 
         if (vzdalenostPremiera > 0) {
