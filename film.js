@@ -169,6 +169,7 @@ if (vybranyFilm) {
 /*Hodnoceni*/
 
 const hodnoceniElement = document.querySelector(".stars");
+let poradiHvezdy = 0;
 if (hodnoceniElement) {
 	const hodnoceni = vybranyFilm.hodnoceni;
 }
@@ -188,6 +189,18 @@ const hvezdy = document.querySelectorAll(".fa-star");
 
 hvezdy.forEach((hvezda, index) => {
     hvezda.addEventListener("click", () => {
-		zvyrazneni(index + 1);
+		poradiHvezdy = index + 1;
+		console.log("Pořadí kliknuté hvězdy je: " + poradiHvezdy)
+		zvyrazneni (poradiHvezdy);
+		console.log("Kliknutí na hvězdu!");
     });
+
+	hvezda.addEventListener ("mouseenter", () => {
+		zvyrazneni(index + 1);
+		console.log("Přejetí myši nad hvězdou");
+	});
+
+	hvezda.addEventListener("mouseleave", () => {
+		zvyrazneni(poradiHvezdy);
+	});
 });
