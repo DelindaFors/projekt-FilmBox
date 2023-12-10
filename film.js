@@ -145,15 +145,17 @@ const premieraElement = document.getElementById("premiera");
 if (vybranyFilm) {
     const formatDatumPremiera = dayjs(vybranyFilm.premiera).format("D. M. YYYY");
 	let popisPremiera = `Premiéra <strong>${formatDatumPremiera}</strong>`;
-    let denSpravne = 'dny'
+    let denSpravne = "dny"
 
     if (vzdalenostPremiera === 0) {
-        popisPremiera += ' je dnes.';
+        popisPremiera += " je dnes.";
     } else {
-        if (vzdalenostPremiera === 1 || vzdalenostPremiera === -1) {
+        if (vzdalenostPremiera === 1 || vzdalenostPremiera === 0) {
             denSpravne = 'den';
+		} else if (vzdalenostPremiera === -1){
+			denSpravne = "dnem"	
         } else if (vzdalenostPremiera >= 2 && vzdalenostPremiera <= 4) {
-            denSpravne = 'dní';
+            denSpravne = "dní";
         }
 
         if (vzdalenostPremiera > 0) {
